@@ -1,0 +1,7 @@
+{
+  "random_equivalence_cases": 12000,
+  "max_relative_error": 1.4725567423199108e-12,
+  "degenerate_uv": "pass",
+  "object_rotation_90_degrees": "pass",
+  "scope": "CPU double-precision algebra regression; not a scene render test"
+}

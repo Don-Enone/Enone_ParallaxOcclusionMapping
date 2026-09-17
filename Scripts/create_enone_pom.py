@@ -32,30 +32,8 @@ def make(cls, x, y):
 # Reconstruct the axes of the ACTUAL input UV field from screen derivatives.
 # Degenerate UVs produce zero lateral offset. Derivatives are evaluated
 # before ray marching, and never depend on the displaced UV output.
-FRAME_CODE = r'''
-float3 Fallback = float3(0,0,1);
-float uvDet = UVdx.x * UVdy.y - UVdx.y * UVdy.x;
-float uvScale = max(length(UVdx) * length(UVdy), 1e-30);
-if (abs(uvDet) <= 1e-5 * uvScale) return Fallback;
-float3 N = normalize(NormalWS);
-float invDet = 1.0 / uvDet;
-float3 U = (Pdx * UVdy.y - Pdy * UVdx.y) * invDet;
-float3 V = (Pdy * UVdx.x - Pdx * UVdy.x) * invDet;
-U -= N * dot(U, N);
-V -= N * dot(V, N);
-float u2 = dot(U,U);
-float v2 = dot(V,V);
-if (min(u2,v2) < 1e-20) return Fallback;
-U *= rsqrt(u2);
-V *= rsqrt(v2);
-// Invert the basis, preserving UV handedness and non-orthogonal UV axes.
-float basisDet = dot(U, cross(V,N));
-if (abs(basisDet) < 1e-5) return Fallback;
-float3 result = float3(dot(VectorWS,cross(V,N))/basisDet,
-              dot(VectorWS,cross(N,U))/basisDet,
-              dot(VectorWS,N));
-RETURN_RESULT
-'''
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frame_optimized.hlsl'), encoding='utf-8') as shader_file:
+    FRAME_CODE = shader_file.read()
 
 uv = node('MaterialExpressionFunctionInput_10')
 pos = node('MaterialExpressionWorldPosition_4')
@@ -98,7 +76,7 @@ connect(light, node('MaterialExpressionComponentMask_47'), '')
 connect(light, node('MaterialExpressionFunctionOutput_0'), '')
 
 fn.set_editor_property('description',
-    'Enone POM: view and light directions follow the actual input UV frame under object rotation, UV rotation and mirroring. '
+    'Enone POM: optimized automatic UV frame for object rotation, rotated/mirrored and sheared UVs. '
     'Automatic UV frame only; no legacy coordinate mode. Degenerate UVs suppress lateral parallax. '
     'Based on UE4.26 ParallaxOcclusionMapping; original height ratio, ray marching, PDO and quality fallbacks retained.')
 obsolete = ['MaterialExpressionFunctionInput_0', 'MaterialExpressionFunctionInput_6',

@@ -1,0 +1,12 @@
+{
+  "engine": "Unreal Engine 4.26",
+  "asset_sha256": "c5ef0171eca795cc35fbb7cdec79273bcfe41e52f8710674369a8552d38149d8",
+  "fresh_process_reload_verified": true,
+  "compile_configurations": ["shadows disabled", "shadows enabled"],
+  "shader_platform": "PCD3D_SM5",
+  "compile_errors": 0,
+  "compile_warnings": 0,
+  "source_evidence": "2026-09-17 optimization save and fresh-process reload logs",
+  "scene_render_regression": "not performed",
+  "full_base_pass_instruction_count": "not measured"
+}
