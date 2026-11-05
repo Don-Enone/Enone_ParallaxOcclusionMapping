@@ -8,10 +8,13 @@ to the extent owned by the project author. It also licenses the author's
 original contributions to the material function to the extent separable from
 Epic-provided content.
 
-`Content/TAcourse_III/Element/BaseElement/Enone_ParallaxOcclusionMapping.uasset`
-is derived from the Unreal Engine 4.26 built-in material function:
+`Content/Material/Enone_ParallaxOcclusionMapping.uasset` (saved with Unreal
+Engine 5.8) is derived from the Unreal Engine built-in material function:
 
 `/Engine/Functions/Engine_MaterialFunctions01/Texturing/ParallaxOcclusionMapping`
+
+The v1.0 asset (tag `v1.0-ue4.26`) was derived from the Unreal Engine 4.26
+version of the same function.
 
 The asset contains Epic-provided material graph content and ray-marching code.
 That third-party content is excluded from the MIT grant. The MIT License does
